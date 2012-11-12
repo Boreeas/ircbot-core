@@ -1,0 +1,1 @@
+The core module for https://github.com/Boreeas/ircbot. Provides basic functionality for the bot. This an be replaced by any custom plugin named "Core".
