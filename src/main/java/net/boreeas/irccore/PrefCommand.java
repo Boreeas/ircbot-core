@@ -5,7 +5,6 @@
 
 package net.boreeas.irccore;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.LocatorEx;
 import java.io.IOException;
 import net.boreeas.irc.BotAccessLevel;
 import net.boreeas.irc.CTCP;
