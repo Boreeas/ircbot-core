@@ -11,7 +11,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Core implements Plugin {
 
-    private Log logger = LogFactory.getLog("Core");
+    public static final String CMD_LISTEN_TO_NAME = "cmd-listen-to-name";
+    
+    private static final Log logger = LogFactory.getLog("Core");
 
     @Override
     public void onEnable(IRCBot bot) {
@@ -27,6 +29,7 @@ public class Core implements Plugin {
         bot.getCommandHandler().registerCommand(this, new PluginCommand(bot));
         bot.getCommandHandler().registerCommand(this, new MuteCommand(bot));
         bot.getCommandHandler().registerCommand(this, new HelpCommand(bot));
+        bot.registerEventListener(this, new CoreEventListener(bot));
     }
 
     @Override
@@ -63,5 +66,4 @@ public class Core implements Plugin {
     public void save() {
         // Nothing needed to be done
     }
-
 }
