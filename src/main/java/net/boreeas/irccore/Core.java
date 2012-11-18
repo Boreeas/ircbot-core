@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 public class Core implements Plugin {
 
     public static final String CMD_LISTEN_TO_NAME = "cmd-listen-to-name";
-    
+
     private static final Log logger = LogFactory.getLog("Core");
 
     @Override
@@ -29,6 +29,7 @@ public class Core implements Plugin {
         bot.getCommandHandler().registerCommand(this, new PluginCommand(bot));
         bot.getCommandHandler().registerCommand(this, new MuteCommand(bot));
         bot.getCommandHandler().registerCommand(this, new HelpCommand(bot));
+        bot.getCommandHandler().registerCommand(this, new PrefCommand(bot));
         bot.registerEventListener(this, new CoreEventListener(bot));
     }
 
