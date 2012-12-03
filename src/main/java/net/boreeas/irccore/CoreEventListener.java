@@ -5,8 +5,11 @@
 package net.boreeas.irccore;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.boreeas.irc.ConfigKey;
 import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.ModeChangeBuilder;
 import net.boreeas.irc.Preferences;
 import net.boreeas.irc.events.*;
 import org.apache.commons.lang.ArrayUtils;
@@ -30,7 +33,7 @@ public class CoreEventListener extends DefaultEventListener {
     public void onPingReceived(PingEvent evt) {
 
         try {
-            bot.sendRaw("PONG :" + evt.code());
+            bot.send("PONG :" + evt.code());
         } catch (IOException ex) {
             logger.fatal("Unable to send pong", ex);
             logger.info("Reconnecting to prevent ping timeout");
@@ -51,6 +54,12 @@ public class CoreEventListener extends DefaultEventListener {
                 bot.reconnect();
             }
         }
+
+        try {
+            bot.changeModes(new ModeChangeBuilder().addMode('B'));
+        } catch (IOException ex) {
+            logger.error("Could not set mode +B (Bot)", ex);
+        }
     }
 
     @Override
@@ -66,50 +75,59 @@ public class CoreEventListener extends DefaultEventListener {
     public void onMessageReceived(MessageReceivedEvent evt) {
 
         try {
-            String prefix = null;
-            String command = null;
-            String[] actualArgs = null;
-
-            if (checkForCommandPrefix(evt.target(), evt.message())) {
-                // Message starts with command prefix
-
-                String[] args = evt.message().split(" ");
-
-                if (args.length < 2) { // <prefix> <command>
-                    bot.sendNotice(bot.getReplyTarget(evt.target(), evt.user().nick()), "Missing command");
-                    return;
-                }
-
-                // Strip ! from !core help
-                prefix = args[0].substring(bot.commandPrefix(evt.target()).length());
-                command = args[1];
-                actualArgs = (String[]) ArrayUtils.subarray(args, 2, args.length);
-
-            } else if (bot.getPreferences().getBoolean(evt.target(), Core.CMD_LISTEN_TO_NAME)
-                    && checkForBotNamePrefix(evt.message())) {
-                // Bot listens to messages addressed to itself, and message
-                // was addressed to it.
-
-                String[] args = evt.message().split(" ");
-
-                if (args.length < 3) { // <name> <prefix> <command>
-                    bot.sendNotice(bot.getReplyTarget(evt.target(), evt.user().nick()), "Missing command");
-                    return;
-                }
-
-                prefix = args[1];
-                command = args[2];
-                actualArgs = (String[]) ArrayUtils.subarray(args, 3, args.length);
-            }
-
-            bot.handleCommand(evt.user(), evt.target(), prefix, command, actualArgs);
+            checkCommand(evt);
         } catch (IOException ex) {
             logger.error("Error while replying to message");
         }
     }
 
-    private boolean checkForCommandPrefix(String chan, String s) {
-        return s.startsWith(bot.commandPrefix(chan));
+    private void checkCommand(MessageReceivedEvent evt) throws IOException {
+
+        logger.debug("Checking if is command: " + evt.message());
+        String prefix = null;
+        String command = null;
+        String[] actualArgs = null;
+
+        if (checkForCommandPrefix(evt.target(), evt.message())) {
+            // Message starts with command prefix
+
+            String[] args = evt.message().split(" ");
+
+            if (args.length < 2) { // <prefix> <command>
+                bot.sendNotice(bot.getReplyTarget(evt.target(), evt.user().nick()), "Missing command");
+                return;
+            }
+
+            // Strip ! from !core help
+            prefix = args[0].substring(bot.commandPrefix(evt.target()).length());
+            command = args[1];
+            actualArgs = (String[]) ArrayUtils.subarray(args, 2, args.length);
+
+        } else if (bot.getPreferences().getBoolean(evt.target(), Core.CMD_LISTEN_TO_NAME)
+                   && checkForBotNamePrefix(evt.message())) {
+            // Bot listens to messages addressed to itself, and message
+            // was addressed to it.
+
+            String[] args = evt.message().split(" ");
+
+            if (args.length < 3) { // <name> <prefix> <command>
+                bot.sendNotice(bot.getReplyTarget(evt.target(), evt.user().nick()), "Missing command");
+                return;
+            }
+
+            prefix = args[1];
+            command = args[2];
+            actualArgs = (String[]) ArrayUtils.subarray(args, 3, args.length);
+        }
+
+        if (command != null) { // if command is assigned, it's a command
+            bot.handleCommand(evt.user(), evt.target(), prefix, command, actualArgs);
+        }
+    }
+
+    private boolean checkForCommandPrefix(String target, String s) {
+        logger.debug("Command prefix for " + target  + " is " + bot.commandPrefix(target));
+        return s.startsWith(bot.commandPrefix(target));
     }
 
     private boolean checkForBotNamePrefix(String s) {
