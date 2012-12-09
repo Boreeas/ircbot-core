@@ -5,7 +5,7 @@
 package net.boreeas.irccore;
 
 import java.io.IOException;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.User;
 import net.boreeas.irc.Command;
 
@@ -15,7 +15,7 @@ import net.boreeas.irc.Command;
  */
 public class JoinCommand extends Command {
 
-    public JoinCommand(IRCBot bot) {
+    public JoinCommand(IrcBot bot) {
         super(bot);
     }
 

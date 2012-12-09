@@ -6,7 +6,7 @@ package net.boreeas.irccore;
 
 import java.io.IOException;
 import net.boreeas.irc.BotAccessLevel;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.User;
 import net.boreeas.irc.Command;
 import org.apache.commons.configuration.ConfigurationException;
@@ -18,7 +18,7 @@ import org.apache.commons.configuration.plist.PropertyListConfiguration;
  */
 public class StartCommand extends Command {
 
-    public StartCommand(IRCBot bot) {
+    public StartCommand(IrcBot bot) {
         super(bot);
     }
 
@@ -45,7 +45,7 @@ public class StartCommand extends Command {
                     try {
                         PropertyListConfiguration conf =
                                                   new PropertyListConfiguration(args[i]);
-                        IRCBot bot = new IRCBot(conf);
+                        IrcBot bot = new IrcBot(conf);
                         bot.connect();
                         bot.start();
                     } catch (ConfigurationException ex) {

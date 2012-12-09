@@ -6,7 +6,7 @@ package net.boreeas.irccore;
 
 import java.io.IOException;
 import net.boreeas.irc.BotAccessLevel;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.User;
 import net.boreeas.irc.Command;
 
@@ -16,7 +16,7 @@ import net.boreeas.irc.Command;
  */
 public class NickCommand extends Command {
 
-    public NickCommand(IRCBot bot) {
+    public NickCommand(IrcBot bot) {
         super(bot);
     }
 

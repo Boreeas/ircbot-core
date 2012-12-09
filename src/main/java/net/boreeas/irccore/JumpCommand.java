@@ -6,7 +6,7 @@ package net.boreeas.irccore;
 
 import java.io.IOException;
 import net.boreeas.irc.BotAccessLevel;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.User;
 import net.boreeas.irc.Command;
 import org.apache.commons.configuration.FileConfiguration;
@@ -17,7 +17,7 @@ import org.apache.commons.configuration.FileConfiguration;
  */
 public class JumpCommand extends Command {
 
-    public JumpCommand(IRCBot bot) {
+    public JumpCommand(IrcBot bot) {
         super(bot);
     }
 
@@ -64,7 +64,7 @@ public class JumpCommand extends Command {
         config.setProperty("host", host);
         config.setProperty("port", port);
 
-        IRCBot newBot = new IRCBot(config);
+        IrcBot newBot = new IrcBot(config);
         log.info("[JUMP] Trying to jump to " + host + ":" + port);
 
         try {

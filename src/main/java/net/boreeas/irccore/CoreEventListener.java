@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.boreeas.irc.ConfigKey;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.ModeChangeBuilder;
 import net.boreeas.irc.Preferences;
 import net.boreeas.irc.events.*;
@@ -23,9 +23,9 @@ import org.apache.commons.logging.LogFactory;
 public class CoreEventListener extends DefaultEventListener {
 
     private final Log logger = LogFactory.getLog("CoreEventListener");
-    private IRCBot bot;
+    private IrcBot bot;
 
-    public CoreEventListener(IRCBot bot) {
+    public CoreEventListener(IrcBot bot) {
         this.bot = bot;
     }
 

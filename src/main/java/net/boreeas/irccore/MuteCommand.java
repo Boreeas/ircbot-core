@@ -13,7 +13,7 @@ import net.boreeas.irc.*;
  */
 public class MuteCommand extends Command {
 
-    public MuteCommand(IRCBot bot) {
+    public MuteCommand(IrcBot bot) {
         super(bot);
     }
 

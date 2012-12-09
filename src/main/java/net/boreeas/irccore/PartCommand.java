@@ -7,7 +7,7 @@ package net.boreeas.irccore;
 import java.io.IOException;
 import net.boreeas.irc.BotAccessLevel;
 import net.boreeas.irc.ChannelAccessLevel;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.User;
 import net.boreeas.irc.Command;
 
@@ -17,7 +17,7 @@ import net.boreeas.irc.Command;
  */
 public class PartCommand extends Command {
 
-    public PartCommand(IRCBot bot) {
+    public PartCommand(IrcBot bot) {
         super(bot);
     }
 

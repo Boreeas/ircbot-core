@@ -10,7 +10,7 @@ import net.boreeas.irc.BotAccessLevel;
 import net.boreeas.irc.CTCP;
 import net.boreeas.irc.ChannelAccessLevel;
 import net.boreeas.irc.Command;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.User;
 
 /**
@@ -19,7 +19,7 @@ import net.boreeas.irc.User;
  */
 public class PrefCommand extends Command {
 
-    public PrefCommand(IRCBot bot) {
+    public PrefCommand(IrcBot bot) {
         super(bot);
     }
 

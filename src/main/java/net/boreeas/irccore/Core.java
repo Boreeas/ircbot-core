@@ -1,6 +1,6 @@
 package net.boreeas.irccore;
 
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.plugins.Plugin;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,7 +16,7 @@ public class Core implements Plugin {
     private static final Log logger = LogFactory.getLog("Core");
 
     @Override
-    public void onEnable(IRCBot bot) {
+    public void onEnable(IrcBot bot) {
 
         logger.info("Loading core module");
         bot.getCommandHandler().registerCommand(this, new JoinCommand(bot));

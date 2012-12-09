@@ -7,7 +7,7 @@ package net.boreeas.irccore;
 
 import java.io.IOException;
 import net.boreeas.irc.Command;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.NoSuchCommandException;
 import net.boreeas.irc.User;
 import org.apache.commons.lang.StringUtils;
@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class HelpCommand extends Command {
 
-    public HelpCommand(IRCBot bot) {
+    public HelpCommand(IrcBot bot) {
         super(bot);
     }
 

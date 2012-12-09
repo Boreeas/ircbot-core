@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import net.boreeas.irc.BotAccessLevel;
 import net.boreeas.irc.CTCP;
-import net.boreeas.irc.IRCBot;
+import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.User;
 import net.boreeas.irc.Command;
 import net.boreeas.irc.plugins.Plugin;
@@ -33,7 +33,7 @@ public class PluginCommand extends Command {
                                                    + "\"reload\"] <plugin>")
                                 + " - Loades, unloades or reloades <plugin>";
 
-    public PluginCommand(IRCBot bot) {
+    public PluginCommand(IrcBot bot) {
         super(bot);
     }
 
