@@ -6,6 +6,7 @@
 package net.boreeas.irccore;
 
 import java.io.IOException;
+import java.util.Arrays;
 import net.boreeas.irc.BotAccessLevel;
 import net.boreeas.irc.CTCP;
 import net.boreeas.irc.ChannelAccessLevel;
@@ -31,8 +32,18 @@ public class PrefCommand extends Command {
     @Override
     public void execute(User sender, String target, String[] args) throws IOException {
 
+        if (args.length < 1) {
+            bot.sendNotice(bot.getReplyTarget(target, sender.nick()), "Missing arguments. See help for syntax");
+            return;
+        }
+
+        if (args[0].equalsIgnoreCase("list")) {
+            bot.sendNotice(bot.getReplyTarget(target, sender.nick()), "Registered Preferences: "
+                                                                      + Arrays.toString(bot.getPreferences().getRegisteredPrefs()));
+        }
+
         if (args.length < 2) {
-            bot.sendNotice(bot.getReplyTarget(target, sender.nick()), "Missing arguments");
+            bot.sendNotice(bot.getReplyTarget(target, sender.nick()), "Missing arguments. See help for syntax");
             return;
         }
 
@@ -73,7 +84,7 @@ public class PrefCommand extends Command {
 
     @Override
     public String help() {
-        return "Gets or changes channel preferences off the bot - 'pref get <key>' or 'pref set <key> <value>'";
+        return "Gets, lists or changes channel preferences off the bot - 'pref get <key>', 'pref list' or 'pref set <key> <value>'";
     }
 
 }

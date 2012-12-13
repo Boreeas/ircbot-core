@@ -19,6 +19,7 @@ public class Core implements Plugin {
     public void onEnable(IrcBot bot) {
 
         logger.info("Loading core module");
+        bot.getPreferences().registerPref(CMD_LISTEN_TO_NAME);
         bot.getCommandHandler().registerCommand(this, new JoinCommand(bot));
         bot.getCommandHandler().registerCommand(this, new PartCommand(bot));
         bot.getCommandHandler().registerCommand(this, new RawCommand(bot));
