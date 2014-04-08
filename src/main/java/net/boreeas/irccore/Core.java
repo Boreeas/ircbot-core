@@ -61,7 +61,7 @@ public class Core implements Plugin {
 
     @Override
     public String reloadTarget() {
-        return "Core";
+        return "Core.jar";
     }
 
     @Override

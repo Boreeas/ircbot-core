@@ -4,16 +4,13 @@
  */
 package net.boreeas.irccore;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import net.boreeas.irc.BotAccessLevel;
-import net.boreeas.irc.CTCP;
-import net.boreeas.irc.IrcBot;
-import net.boreeas.irc.User;
-import net.boreeas.irc.Command;
+import net.boreeas.irc.*;
 import net.boreeas.irc.plugins.Plugin;
 import net.boreeas.irc.plugins.PluginLoadException;
 import org.apache.commons.lang.StringUtils;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  *
@@ -46,7 +43,7 @@ public class PluginCommand extends Command {
     public void execute(User sender, String target, String[] args) throws
             IOException {
 
-        String sendTo = getReplyTarget(sender.nick(), target);
+        String sendTo = bot.getReplyTarget(sender.nick(), target);
 
         if (args.length == 0 || args[0].equals("help")) {
 
@@ -188,7 +185,7 @@ public class PluginCommand extends Command {
                                    + "[plugin...]");
         } else {
 
-            for (int i = 0; i < args.length; i++) {
+            for (int i = 1; i < args.length; i++) {
                 String pluginName = args[i];
 
                 Plugin plugin = bot.getPluginManager().getPlugin(pluginName);
