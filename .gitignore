@@ -4,3 +4,6 @@ plugins/*
 target/*
 dependency-reduced-pom.xml
 .out
+fontconfig
+.iml
+.idea
