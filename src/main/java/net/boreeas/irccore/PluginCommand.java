@@ -181,42 +181,41 @@ public class PluginCommand extends Command {
     private void reloadPlugin(String target, String[] args) throws IOException {
 
         if (args.length == 1) {
-            bot.sendNotice(target, "Missing arguments. Format: reload <plugin> "
-                                   + "[plugin...]");
+            bot.sendNotice(target, "Missing arguments. Format: reload <plugin> [<reload-target>]");
         } else {
 
-            for (int i = 1; i < args.length; i++) {
-                String pluginName = args[i];
+            String pluginName = args[1];
 
-                Plugin plugin = bot.getPluginManager().getPlugin(pluginName);
-                if (plugin == null) {
+            Plugin plugin = bot.getPluginManager().getPlugin(pluginName);
+            String reloadTarget = args.length == 2 ? plugin.reloadTarget() : args[2];
 
-                    bot.sendNotice(target, "No active plugin with name "
-                                           + pluginName);
-                } else {
+            if (plugin == null) {
 
-                    bot.getPluginManager().disablePlugin(plugin);
+                bot.sendNotice(target, "No active plugin with name "
+                                       + pluginName);
+            } else {
 
-                    try {
+                bot.getPluginManager().disablePlugin(plugin);
 
-                        bot.getPluginManager().loadPlugin(plugin.reloadTarget());
-                        bot.sendNotice(target, CTCP.bold(plugin.getPluginName())
-                                               + " successfully reloaded (Reload "
-                                               + "target was "
-                                               + CTCP.bold(plugin.reloadTarget())
-                                               + ")");
-                    } catch (FileNotFoundException ex) {
+                try {
 
-                        bot.sendNotice(target, CTCP.bold(plugin.getPluginName())
-                                               + " unloaded. Reload target "
-                                               + CTCP.bold(plugin.reloadTarget())
-                                               + " could not be found.");
-                    } catch (PluginLoadException ex) {
+                    bot.getPluginManager().loadPlugin(reloadTarget);
+                    bot.sendNotice(target, CTCP.bold(plugin.getPluginName())
+                                           + " successfully reloaded (Reload "
+                                           + "target was "
+                                           + CTCP.bold(reloadTarget)
+                                           + ")");
+                } catch (FileNotFoundException ex) {
 
-                        bot.sendNotice(target, CTCP.bold(plugin.getPluginName())
-                                               + " unloaded. Error while reloading "
-                                               + CTCP.bold(plugin.reloadTarget()));
-                    }
+                    bot.sendNotice(target, CTCP.bold(plugin.getPluginName())
+                                           + " unloaded. Reload target "
+                                           + CTCP.bold(reloadTarget)
+                                           + " could not be found.");
+                } catch (PluginLoadException ex) {
+
+                    bot.sendNotice(target, CTCP.bold(plugin.getPluginName())
+                                           + " unloaded. Error while reloading "
+                                           + CTCP.bold(reloadTarget));
                 }
             }
         }
