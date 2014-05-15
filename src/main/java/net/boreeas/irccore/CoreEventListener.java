@@ -4,23 +4,26 @@
  */
 package net.boreeas.irccore;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.boreeas.irc.ConfigKey;
 import net.boreeas.irc.IrcBot;
 import net.boreeas.irc.ModeChangeBuilder;
 import net.boreeas.irc.Preferences;
-import net.boreeas.irc.events.*;
+import net.boreeas.irc.events.EventListener;
+import net.boreeas.irc.events.MessageReceivedEvent;
+import net.boreeas.irc.events.PingEvent;
+import net.boreeas.irc.events.SupportListReceivedEvent;
+import net.boreeas.irc.events.WelcomeReceivedEvent;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
 
 /**
  *
  * @author Boreeas
  */
-public class CoreEventListener extends DefaultEventListener {
+public class CoreEventListener extends EventListener {
 
     private final Log logger = LogFactory.getLog("CoreEventListener");
     private IrcBot bot;

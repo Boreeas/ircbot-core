@@ -23,8 +23,8 @@
     </dependency>
     <dependency>
       <groupId>net.boreeas</groupId>
-      <artifactId>ircbot</artifactId>
-      <version>1.0.0</version>
+      <artifactId>irc</artifactId>
+      <version>1.0.2</version>
       <type>jar</type>
     </dependency>
   </dependencies>
