@@ -40,6 +40,8 @@ public class PrefCommand extends Command {
         if (args[0].equalsIgnoreCase("list")) {
             bot.sendNotice(bot.getReplyTarget(target, sender.nick()), "Registered Preferences: "
                                                                       + Arrays.toString(bot.getPreferences().getRegisteredPrefs()));
+        
+            return;
         }
 
         if (args.length < 2) {
